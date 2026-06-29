@@ -10,8 +10,11 @@ import Footer from './components/Footer'
 function App() {
   return (
     <div className="font-raleway bg-background">
+      <a href="#main-content" className="skip-link">
+        Lewati ke konten utama
+      </a>
       <Hero />
-      <main>
+      <main id="main-content">
         <Values />
         <Services />
         <TargetMarket />

@@ -1,11 +1,21 @@
 import Navbar from "./Navbar";
-import { motion, useScroll, useTransform } from 'motion/react';
+import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react';
 import portfolioImg from '../assets/portofolio.png';
+import portfolioMobileImg from '../assets/portofolio-mobile.png';
 import { useEffect, useState } from "react";
+
+const clientLogos = [
+  { src: "/assets/images/icons/logoipsum-1.svg", alt: "Client Logo 1" },
+  { src: "/assets/images/icons/logoipsum-2.svg", alt: "Client Logo 2" },
+  { src: "/assets/images/icons/logoipsum-3.svg", alt: "Client Logo 3" },
+  { src: "/assets/images/icons/logoipsum-4.svg", alt: "Client Logo 4" },
+  { src: "/assets/images/icons/logoipsum-5.svg", alt: "Client Logo 5" },
+];
 
 export default function Hero() {
   const { scrollY } = useScroll();
   const [isMobile, setIsMobile] = useState(false);
+  const reduceMotion = useReducedMotion();
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 1024);
@@ -15,8 +25,9 @@ export default function Hero() {
   }, []);
 
   // Disable parallax on mobile to prevent overflow issues
-  const imageY = useTransform(scrollY, [0, 500], [0, isMobile ? 0 : 150]);
-  const textY = useTransform(scrollY, [0, 500], [0, isMobile ? 0 : 50]);
+  const shouldReduceMotion = reduceMotion || isMobile;
+  const imageY = useTransform(scrollY, [0, 500], [0, shouldReduceMotion ? 0 : 150]);
+  const textY = useTransform(scrollY, [0, 500], [0, shouldReduceMotion ? 0 : 50]);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -32,78 +43,99 @@ export default function Hero() {
   };
 
   const floatVariants1 = {
-    animate: {
+    animate: reduceMotion ? { y: 0 } : {
       y: [0, -12, 0],
       transition: { duration: 4, repeat: Infinity, ease: "easeInOut" }
     }
   };
 
   const floatVariants2 = {
-    animate: {
+    animate: reduceMotion ? { y: 0 } : {
       y: [0, -15, 0],
       transition: { duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }
     }
   };
 
   return (
-    <header className="bg-section w-full pb-10 lg:pb-[70px] pt-[120px] lg:pt-[200px] overflow-hidden">
+    <header className="mobile-hero w-full overflow-hidden bg-section pb-9 pt-[92px] sm:pt-[110px] lg:pb-[70px] lg:pt-[200px]">
       <div className="relative flex justify-center w-full">
         <Navbar />
         <motion.div 
           variants={containerVariants}
-          initial="hidden"
+          initial={reduceMotion ? false : "hidden"}
           animate="visible"
-          className="flex flex-col gap-10 lg:gap-[30px] px-4 md:px-8 lg:px-[75px] max-w-[1280px] w-full items-center lg:items-start"
+          className="mobile-shell flex w-full max-w-[1280px] flex-col items-center gap-8 px-4 sm:px-5 md:px-8 lg:gap-[30px] lg:px-[75px]"
         >
-          <div className="flex flex-col lg:flex-row gap-10 lg:gap-[30px] w-full items-center justify-between">
-            <motion.div style={{ y: textY }} className="flex flex-col gap-6 lg:gap-[30px] w-full lg:w-[50%] shrink-0 py-4 lg:py-0 items-center text-center lg:items-start lg:text-left">
-              <motion.h1 variants={itemVariants} className="text-4xl md:text-5xl lg:text-[60px] font-extrabold leading-[50px] md:leading-[60px] lg:leading-[70px]">
-                <mark className="bg-primary -mx-1 inline-flex items-center justify-center h-[40px] lg:h-[50px] px-4">
-                  Membangun
-                </mark>
-                <br className="hidden lg:block" />
-                {" "}Fondasi Pertumbuhan Bisnis{" "}
-                <br className="hidden lg:block" />
-                <mark className="bg-primary inline-flex -mx-1 items-center justify-center h-[40px] lg:h-[50px] px-4">
-                  Anda.
-                </mark>
+          <div className="mobile-hero-grid grid w-full items-center gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(460px,0.92fr)] lg:gap-[30px]">
+            <motion.div style={{ y: textY }} className="mobile-hero-copy order-2 flex w-full min-w-0 flex-col items-center gap-5 py-2 text-center lg:order-1 lg:items-start lg:gap-[30px] lg:py-0 lg:text-left">
+              <motion.h1 variants={itemVariants} className="max-w-[12ch] text-[clamp(1.9rem,9.4vw,2.55rem)] font-extrabold leading-[1.04] tracking-normal sm:max-w-[14ch] lg:max-w-none lg:text-[60px] lg:leading-[70px]">
+                <span className="mobile-hero-title-mobile">
+                  <span>
+                    <mark className="-mx-1 inline-flex min-h-[0.92em] items-center justify-center bg-primary px-2.5 leading-none lg:h-[50px] lg:px-4">
+                      Membangun
+                    </mark>{" "}
+                    Fondasi
+                  </span>
+                  <span>
+                    Pertumbuhan Bisnis{" "}
+                    <mark className="-mx-1 inline-flex min-h-[0.92em] items-center justify-center bg-primary px-2.5 leading-none lg:h-[50px] lg:px-4">
+                      Anda.
+                    </mark>
+                  </span>
+                </span>
+                <span className="mobile-hero-title-desktop hidden lg:inline">
+                  <mark className="-mx-1 inline-flex min-h-[0.92em] items-center justify-center bg-primary px-2.5 leading-none lg:h-[50px] lg:px-4">
+                    Membangun
+                  </mark>
+                  <br />
+                  {" "}Fondasi Pertumbuhan Bisnis{" "}
+                  <br />
+                  <mark className="-mx-1 inline-flex min-h-[0.92em] items-center justify-center bg-primary px-2.5 leading-none lg:h-[50px] lg:px-4">
+                    Anda.
+                  </mark>
+                </span>
               </motion.h1>
-              <motion.p variants={itemVariants} className="w-full max-w-[484px] text-base lg:text-lg leading-7 lg:leading-8 font-medium">
+              <motion.p variants={itemVariants} className="w-full max-w-[34rem] text-[clamp(0.98rem,4vw,1.125rem)] font-medium leading-7 text-slate lg:leading-8">
                 ARUNA membantu bisnis tampil lebih jelas, dipercaya, dan profesional sebelum tumbuh lebih besar.
               </motion.p>
-              <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-3.5 mt-4 lg:mt-0 w-full sm:w-auto">
+              <motion.div variants={itemVariants} className="mobile-hero-actions flex w-full max-w-[21rem] items-center justify-center gap-2 pt-1 sm:w-auto lg:mt-0 lg:max-w-none lg:gap-3">
                 <a
-                  href="#konsultasi"
-                  className="px-6 lg:px-[30px] py-4 lg:py-[20px] rounded-[100px] bg-primary text-[16px] font-bold leading-[19px] transition-all duration-300 hover:shadow-primary text-center"
+                  href="#kontak"
+                  className="flex min-h-12 flex-1 items-center justify-center rounded-full bg-primary px-6 py-3.5 text-center text-[16px] font-bold leading-[19px] transition-all duration-300 hover:shadow-primary lg:min-h-[60px] lg:flex-none lg:px-[30px]"
                 >
                   Konsultasi Sekarang
                 </a>
                 <a
                   href="#layanan"
-                  className="px-6 lg:px-[30px] py-4 lg:py-[20px] rounded-[100px] border border-foreground text-[16px] font-bold leading-[19px] transition-all duration-300 hover:ring-2 hover:ring-primary hover:bg-primary hover:border-primary hover:text-foreground text-center"
+                  className="flex min-h-12 flex-1 items-center justify-center rounded-full border border-foreground px-6 py-3.5 text-center text-[16px] font-bold leading-[19px] transition-all duration-300 hover:border-primary hover:bg-primary hover:text-foreground hover:ring-2 hover:ring-primary lg:min-h-[60px] lg:flex-none lg:px-[30px]"
                 >
                   Lihat Layanan
                 </a>
               </motion.div>
             </motion.div>
 
-            <motion.div style={{ y: imageY }} variants={itemVariants} className="relative w-full max-w-[400px] lg:max-w-none lg:w-[50%] shrink-0 aspect-[1/1] lg:h-[507px] mt-8 lg:mt-0 flex justify-center lg:justify-end">
+            <motion.div style={{ y: imageY }} variants={itemVariants} className="mobile-hero-visual order-1 relative mx-auto flex h-[min(88vw,390px)] w-full max-w-[420px] shrink-0 justify-center lg:order-2 lg:mt-0 lg:h-[507px] lg:max-w-none lg:justify-end">
               <motion.div 
-                initial={{ scale: 0.9, opacity: 0 }}
+                initial={reduceMotion ? false : { scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 1.2, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                className="mx-auto lg:ml-[52px] lg:mr-[51px] w-[85%] lg:w-[447px] h-full lg:h-[506px] rounded-[26px] overflow-clip"
+                className="mobile-hero-image mx-auto h-full w-[76%] overflow-clip rounded-[22px] shadow-[0_24px_60px_rgba(26,26,46,0.14)] lg:ml-[52px] lg:mr-[51px] lg:h-[506px] lg:w-[447px] lg:rounded-[26px]"
               >
-                <img
-                  src={portfolioImg}
-                  className="object-cover w-full h-full hover:scale-105 transition-transform duration-700"
-                  alt="Portfolio Preview"
-                />
+                <picture>
+                  <source media="(max-width: 767px)" srcSet={portfolioMobileImg} />
+                  <img
+                    src={portfolioImg}
+                    className="mobile-hero-img h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+                    alt="Preview portofolio desain ARUNA"
+                    loading="eager"
+                    fetchPriority="high"
+                  />
+                </picture>
               </motion.div>
               <motion.div 
                 variants={floatVariants1}
                 animate="animate"
-                className="absolute top-[10%] lg:top-[77px] -right-2 lg:right-0 w-[120px] lg:w-[140px] bg-white rounded-[24px] p-3 lg:p-4 flex flex-col items-center gap-2 lg:gap-3 drop-shadow-custom"
+                className="mobile-float-card mobile-float-card--value absolute right-0 top-[6%] flex w-[min(34vw,128px)] flex-col items-center gap-2 rounded-[22px] bg-white p-3 drop-shadow-custom lg:right-0 lg:top-[77px] lg:w-[140px] lg:gap-3 lg:rounded-[24px] lg:p-4"
               >
                 <div className="w-[40px] h-[40px] lg:w-[50px] lg:h-[50px] rounded-full bg-primary flex items-center justify-center">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-foreground w-5 h-5 lg:w-[26px] lg:h-[26px]">
@@ -115,7 +147,7 @@ export default function Hero() {
               <motion.div 
                 variants={floatVariants2}
                 animate="animate"
-                className="absolute bottom-[10%] lg:bottom-[68px] -left-2 lg:left-0 bg-white rounded-[100px] p-2 lg:p-3 pr-4 lg:pr-6 flex items-center gap-3 lg:gap-4 drop-shadow-custom"
+                className="mobile-float-card mobile-float-card--clients absolute bottom-[6%] left-0 flex items-center gap-2.5 rounded-full bg-white p-2 pr-3 drop-shadow-custom lg:bottom-[68px] lg:left-0 lg:gap-4 lg:p-3 lg:pr-6"
               >
                 <div className="flex -space-x-2 lg:-space-x-3">
                   <div className="w-[40px] h-[40px] lg:w-[50px] lg:h-[50px] rounded-full bg-primary flex items-center justify-center border-[3px] border-white z-20">
@@ -136,16 +168,26 @@ export default function Hero() {
               </motion.div>
             </motion.div>
           </div>
-          <motion.div variants={itemVariants} className="flex flex-col gap-6 lg:gap-[30px] items-center mt-6 lg:mt-10 w-full">
-            <h2 className="w-full max-w-[450px] font-bold text-[24px] lg:text-[32px] leading-snug lg:leading-[46px] text-center px-4">
+          <motion.div variants={itemVariants} className="mobile-trust flex w-full flex-col items-center gap-5 border-t border-mist/80 pt-7 lg:mt-10 lg:gap-[30px] lg:border-t-0 lg:pt-0">
+            <h2 className="w-full max-w-[450px] px-2 text-center text-[clamp(1.25rem,6vw,2rem)] font-bold leading-snug lg:leading-[46px]">
               Dipercaya oleh Berbagai Klien untuk Tumbuh
             </h2>
-            <div className="flex flex-wrap justify-center gap-6 lg:gap-[70px] h-auto lg:h-[34px] opacity-70">
-              <img src="/assets/images/icons/logoipsum-1.svg" className="h-6 lg:h-auto" alt="Client Logo 1" />
-              <img src="/assets/images/icons/logoipsum-2.svg" className="h-6 lg:h-auto" alt="Client Logo 2" />
-              <img src="/assets/images/icons/logoipsum-3.svg" className="h-6 lg:h-auto" alt="Client Logo 3" />
-              <img src="/assets/images/icons/logoipsum-4.svg" className="h-6 lg:h-auto" alt="Client Logo 4" />
-              <img src="/assets/images/icons/logoipsum-5.svg" className="h-6 lg:h-auto" alt="Client Logo 5" />
+            <div className="mobile-logo-grid grid w-full max-w-[30rem] grid-cols-2 place-items-center gap-x-6 gap-y-4 opacity-70 sm:grid-cols-5 sm:max-w-none lg:h-[34px] lg:gap-[70px]">
+              <motion.div
+                className="mobile-logo-track"
+                animate={isMobile && !reduceMotion ? { x: ["-50%", "0%"] } : { x: 0 }}
+                transition={isMobile && !reduceMotion ? { duration: 18, ease: "linear", repeat: Infinity } : undefined}
+              >
+                {[...clientLogos, ...clientLogos].map((logo, index) => (
+                  <img
+                    key={`${logo.src}-${index}`}
+                    src={logo.src}
+                    className={`h-6 lg:h-auto ${index >= clientLogos.length ? "mobile-logo-duplicate" : ""}`}
+                    alt={index < clientLogos.length ? logo.alt : ""}
+                    aria-hidden={index >= clientLogos.length ? "true" : undefined}
+                  />
+                ))}
+              </motion.div>
             </div>
           </motion.div>
         </motion.div>

@@ -138,11 +138,12 @@
 
   @media (max-width: 1024px) {
     margin-top: 20px;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     justify-content: center;
 
     li {
-      flex: 1 1 calc(50% - 8px);
+      min-width: 0;
     }
 
     a {

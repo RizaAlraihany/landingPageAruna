@@ -2,29 +2,29 @@ import { motion } from 'motion/react';
 
 export default function CTA() {
   return (
-    <section id="kontak" className="bg-foreground">
+    <section id="kontak" className="mobile-cta bg-foreground">
       <motion.div 
         initial={{ opacity: 0, y: 60 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: false, amount: 0.3 }}
         transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-        className="mx-auto w-full max-w-[1280px] px-4 md:px-8 lg:px-[75px] py-10 lg:py-0 overflow-hidden"
+        className="mx-auto w-full max-w-[1280px] overflow-hidden px-4 py-10 sm:px-5 md:px-8 lg:px-[75px] lg:py-0"
       >
-        <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-[85px] w-full">
-          <div className="flex flex-col gap-6 lg:gap-[30px] w-full items-center lg:items-start text-center lg:text-left">
+        <div className="grid w-full items-center gap-8 lg:grid-cols-[minmax(0,1fr)_640px] lg:gap-[85px]">
+          <div className="flex w-full flex-col items-start gap-5 text-left lg:gap-[30px]">
             <div className="flex flex-col gap-2.5 text-white">
-              <h2 className="text-2xl lg:text-[32px] leading-snug lg:leading-[46px] font-bold">
+              <h2 className="text-[clamp(1.55rem,7vw,2rem)] font-bold leading-tight lg:leading-[46px]">
                 Siap Tampil Lebih Profesional?
               </h2>
-              <p className="w-full lg:w-[484px] text-base lg:text-lg leading-relaxed lg:leading-[32px] font-medium">
+              <p className="w-full text-base font-medium leading-7 text-white/85 lg:w-[484px] lg:text-lg lg:leading-[32px]">
                 Jadwalkan sesi konsultasi gratis dengan tim ARUNA. 
                 Mari bangun fondasi pertumbuhan untuk bisnis Anda sekarang.
               </p>
             </div>
-            <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
+            <div className="grid w-full gap-4 sm:w-auto sm:grid-cols-[auto_minmax(0,1fr)] sm:items-center sm:gap-6">
               <a
-                href="#konsultasi"
-                className="px-[30px] py-[20px] text-[16px] font-bold leading-[19px] rounded-[100px] bg-primary transition-all duration-300 hover:shadow-primary text-foreground w-full sm:w-auto text-center"
+                href="mailto:hello@aruna.id"
+                className="flex min-h-12 w-full items-center justify-center rounded-full bg-primary px-[30px] py-3.5 text-center text-[16px] font-bold leading-[19px] text-foreground transition-all duration-300 hover:shadow-primary sm:w-auto lg:min-h-[60px] lg:py-[20px]"
               >
                 Jadwalkan Konsultasi
               </a>
@@ -44,11 +44,13 @@ export default function CTA() {
               </div>
             </div>
           </div>
-          <div className="w-full lg:w-[640px] overflow-clip">
+          <div className="h-[min(64vw,320px)] w-full overflow-clip rounded-[24px] lg:h-auto lg:w-[640px] lg:rounded-none">
             <img
               src="/assets/images/thumbnails/sass-cover.png"
-              alt="image"
+              alt="Contoh pekerjaan digital ARUNA"
               className="object-cover w-full h-full"
+              loading="lazy"
+              decoding="async"
             />
           </div>
         </div>

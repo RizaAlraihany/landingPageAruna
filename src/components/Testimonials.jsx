@@ -2,21 +2,23 @@ import { motion } from 'motion/react';
 
 export default function Testimonials() {
   return (
-    <section>
-      <div className="mx-auto px-4 md:px-8 lg:px-[142px] py-10 lg:py-[100px] max-w-[1280px] w-full">
+    <section className="mobile-section mobile-testimonials">
+      <div className="mx-auto w-full max-w-[1280px] px-4 py-10 sm:px-5 md:px-8 lg:px-[142px] lg:py-[100px]">
         <motion.div 
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: false, amount: 0.3 }}
           transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-          className="flex flex-col lg:flex-row w-full items-center gap-12 lg:gap-[70px]"
+          className="grid w-full items-center gap-9 lg:grid-cols-[456px_minmax(0,1fr)] lg:gap-[70px]"
         >
-          <div className="relative shrink-0 w-full sm:w-[380px] lg:w-[456px] h-[360px] lg:h-[510px] mx-auto lg:mx-0">
-            <div className="absolute w-[260px] lg:w-[350px] h-[340px] lg:h-[470px] left-1/2 -translate-x-1/2 lg:translate-x-0 lg:left-10 bottom-0 rounded-[26px] overflow-clip">
+          <div className="mobile-testimonial-visual relative mx-auto h-[min(96vw,380px)] w-full max-w-[390px] shrink-0 lg:mx-0 lg:h-[510px] lg:w-[456px] lg:max-w-none">
+            <div className="absolute bottom-0 left-1/2 h-[92%] w-[72%] -translate-x-1/2 overflow-clip rounded-[24px] lg:left-10 lg:h-[470px] lg:w-[350px] lg:translate-x-0 lg:rounded-[26px]">
               <img
                 src="/assets/images/thumbnails/testimonial.png"
-                alt="image"
+                alt="Klien ARUNA setelah peningkatan visual brand"
                 className="object-cover w-full h-full"
+                loading="lazy"
+                decoding="async"
               />
             </div>
             <div className="absolute w-[140px] lg:w-[170px] top-0 left-4 lg:left-0 bg-white rounded-[20px] p-3 lg:p-4 flex items-center gap-2 lg:gap-3 drop-shadow-custom z-10">
@@ -32,7 +34,7 @@ export default function Testimonials() {
               <p className="font-bold text-foreground text-xs lg:text-sm text-center leading-tight">Konversi<br/>Meningkat</p>
             </div>
           </div>
-          <div className="flex flex-col gap-6 lg:gap-[30px] items-center lg:items-start text-center lg:text-left">
+          <div className="flex flex-col items-start gap-5 text-left lg:gap-[30px]">
             <div className="flex gap-0.5">
               <img src="/assets/images/icons/star.svg" alt="star" className="w-5 lg:w-auto" />
               <img src="/assets/images/icons/star.svg" alt="star" className="w-5 lg:w-auto" />
@@ -41,7 +43,7 @@ export default function Testimonials() {
               <img src="/assets/images/icons/star.svg" alt="star" className="w-5 lg:w-auto" />
             </div>
             <div className="flex flex-col gap-2.5">
-              <p className="w-full lg:w-[470px] text-xl lg:text-[32px] leading-relaxed lg:leading-[46px]">
+              <p className="w-full text-[clamp(1.18rem,5.5vw,2rem)] leading-relaxed lg:w-[470px] lg:leading-[46px]">
                 <strong>
                   Sebelumnya bisnis kami{" "}
                   <mark className="bg-primary px-1 -mx-1">kurang menonjol</mark>{" "}
@@ -52,8 +54,8 @@ export default function Testimonials() {
                 Klien UMKM Lokal
               </p>
             </div>
-            <div className="flex flex-col gap-4 lg:gap-5">
-              <div className="flex items-center gap-3 justify-center lg:justify-start">
+            <div className="grid gap-3 lg:gap-5">
+              <div className="grid grid-cols-[30px_minmax(0,1fr)] items-center gap-3">
                 <div className="flex justify-center items-center w-6 h-6 lg:w-[30px] lg:h-[30px] bg-foreground rounded-full shrink-0">
                   <div className="icon-check bg-white">
                     <img
@@ -67,7 +69,7 @@ export default function Testimonials() {
                   Identitas Visual Konsisten
                 </p>
               </div>
-              <div className="flex items-center gap-3 justify-center lg:justify-start">
+              <div className="grid grid-cols-[30px_minmax(0,1fr)] items-center gap-3">
                 <div className="flex justify-center items-center w-6 h-6 lg:w-[30px] lg:h-[30px] bg-foreground rounded-full shrink-0">
                   <div className="icon-check bg-white">
                     <img

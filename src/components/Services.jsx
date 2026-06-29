@@ -51,41 +51,45 @@ export default function Services() {
   const currentService = services.find(s => s.id === activeTab);
 
   return (
-    <section id="layanan" className="flex justify-center px-4 md:px-8 lg:px-[126px] py-10 lg:py-[100px]">
+    <section id="layanan" className="mobile-section mobile-services flex scroll-mt-24 justify-center px-4 py-10 sm:px-5 md:px-8 lg:scroll-mt-28 lg:px-[126px] lg:py-[100px]">
       <motion.div 
         initial={{ opacity: 0, y: 60 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: false, amount: 0.2 }}
         transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-        className="flex flex-col gap-10 lg:gap-[50px] w-full max-w-[1280px]"
+        className="flex w-full max-w-[1280px] flex-col gap-8 lg:gap-[50px]"
       >
-        <div className="flex flex-col gap-3">
-          <h2 className="text-3xl lg:text-[50px] text-center leading-snug lg:leading-[59px] font-extrabold">
+        <div className="mx-auto flex max-w-[42rem] flex-col gap-2.5 text-center lg:gap-3">
+          <h2 className="text-[1.55rem] font-extrabold leading-tight lg:text-[clamp(1.9rem,8vw,3.125rem)] lg:leading-[59px]">
             Layanan Kami
           </h2>
-          <p className="text-base lg:text-lg text-center leading-[21px] font-medium">
+          <p className="mx-auto max-w-[17rem] text-sm font-medium leading-6 text-slate lg:max-w-none lg:text-[clamp(0.98rem,4vw,1.125rem)] lg:leading-[21px]">
             Fondasi yang Anda butuhkan untuk tampil lebih jelas
           </p>
         </div>
 
         {/* Tabs button */}
-        <div className="flex w-full gap-4 lg:gap-[70px] border-b border-mist overflow-x-auto pb-2 lg:pb-0 scrollbar-hide">
+        <div className="mobile-service-tabs flex w-full gap-2 overflow-x-auto rounded-none border-0 bg-transparent px-0 pb-2 shadow-none lg:gap-[70px] lg:overflow-visible lg:rounded-none lg:border-x-0 lg:border-t-0 lg:bg-transparent lg:p-0 lg:shadow-none">
           {services.map((service) => (
-            <div
+            <button
               key={service.id}
+              type="button"
               onClick={() => setActiveTab(service.id)}
-              className="tab-menu group flex flex-col gap-4 lg:gap-[30px] justify-between cursor-pointer shrink-0"
+              className={`mobile-service-tab tab-menu group flex min-h-11 w-auto shrink-0 cursor-pointer flex-row items-center justify-center gap-0 rounded-full border border-mist/80 px-3 py-1.5 text-left shadow-[0_10px_28px_rgba(26,26,46,0.045)] transition-all duration-300 lg:min-h-0 lg:w-auto lg:shrink-0 lg:flex-col lg:items-stretch lg:justify-between lg:gap-2 lg:rounded-none lg:border-0 lg:p-0 lg:shadow-none ${
+                activeTab === service.id ? 'bg-foreground text-white lg:bg-transparent lg:text-foreground' : 'text-foreground hover:bg-mist/60 lg:hover:bg-transparent'
+              }`}
+              aria-pressed={activeTab === service.id}
             >
-              <div className="flex gap-4 items-center">
+              <div className="flex items-center gap-2 lg:gap-4">
                 <div
-                  className={`flex items-center justify-center w-10 h-10 lg:w-[50px] lg:h-[50px] shrink-0 rounded-full transition-all duration-300 ${
+                  className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full transition-all duration-300 lg:h-[50px] lg:w-[50px] ${
                     activeTab === service.id ? 'bg-primary' : 'bg-tab-off group-hover:bg-primary'
                   }`}
                 >
                   <div
                     className={`${service.iconClass} ${
-                      activeTab === service.id ? 'bg-foreground' : 'bg-white group-hover:bg-foreground'
-                    } transition-all duration-300 w-5 h-5 lg:w-auto lg:h-auto`}
+                      activeTab === service.id ? 'bg-foreground lg:bg-foreground' : 'bg-white group-hover:bg-foreground'
+                    } h-3.5 w-3.5 transition-all duration-300 lg:h-auto lg:w-auto`}
                   >
                     <img
                       src={`/assets/images/icons/${service.iconFile}`}
@@ -95,26 +99,26 @@ export default function Services() {
                   </div>
                 </div>
                 <h3
-                  className={`font-poppins text-nowrap text-[16px] lg:text-[20px] leading-[30px] ${
+                  className={`font-poppins text-[12.5px] leading-none lg:text-nowrap lg:text-[20px] lg:leading-[30px] ${
                     activeTab === service.id ? 'font-semibold' : 'font-medium'
                   }`}
                 >
                   {service.title}
                 </h3>
               </div>
-              <div className="tab-indicator relative mt-2 lg:mt-0">
+              <div className="tab-indicator relative mt-2 hidden lg:mt-0 lg:block">
                 <div
                   className={`absolute -bottom-[1.5px] rounded-full h-[3px] w-full transition-all duration-300 ${
                     activeTab === service.id ? 'bg-foreground' : 'bg-transparent group-hover:bg-foreground/50'
                   }`}
                 ></div>
               </div>
-            </div>
+            </button>
           ))}
         </div>
 
         {/* Tab content */}
-        <div className="tab-content flex flex-col lg:flex-row items-center gap-8 lg:gap-[50px] px-0 lg:px-[29px] overflow-hidden min-h-[470px]">
+        <div className="tab-content overflow-hidden px-0 lg:min-h-[470px] lg:px-[29px]">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeTab}
@@ -122,43 +126,45 @@ export default function Services() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
               transition={{ duration: 0.3 }}
-              className="flex flex-col lg:flex-row items-center gap-8 lg:gap-[50px] w-full"
+              className="mobile-service-content grid w-full gap-6 lg:grid-cols-[450px_minmax(0,1fr)] lg:items-center lg:gap-[50px]"
             >
-              <div className="tab-img w-full lg:w-[450px] h-[300px] sm:h-[400px] lg:h-[470px] rounded-[26px] shrink-0 overflow-clip">
+              <div className="mobile-service-img tab-img hidden h-[min(72vw,330px)] w-full overflow-clip rounded-[24px] shadow-[0_24px_60px_rgba(26,26,46,0.10)] sm:h-[360px] lg:block lg:h-[470px] lg:w-[450px] lg:rounded-[26px]">
                 <img
                   src={currentService.image}
                   alt={currentService.title}
                   className="object-cover w-full h-full"
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
-              <div className="flex flex-col gap-6 lg:gap-[30px] w-full">
-                <div className="flex flex-col gap-2.5 w-full lg:w-[470px]">
-                  <h4 className="tab-title text-2xl lg:text-[32px] leading-snug lg:leading-[46px] font-bold text-center lg:text-left">
+              <div className="mobile-service-panel flex w-full flex-col gap-3.5 rounded-[24px] border border-mist/80 bg-white/70 p-[18px] shadow-[0_16px_40px_rgba(26,26,46,0.055)] lg:gap-[30px] lg:border-0 lg:bg-transparent lg:p-0 lg:shadow-none">
+                <div className="flex w-full flex-col gap-2.5 lg:w-[470px]">
+                  <h4 className="tab-title text-[1.18rem] font-bold leading-snug text-left lg:text-[clamp(1.45rem,6vw,2rem)] lg:leading-[46px]">
                     {currentService.heading}
                   </h4>
-                  <p className="tab-description text-base lg:text-lg leading-7 lg:leading-8 font-medium text-center lg:text-left">
+                  <p className="tab-description text-sm font-medium leading-relaxed text-slate lg:text-lg lg:leading-8">
                     {currentService.description}
                   </p>
                 </div>
-                <div className="tab-features flex flex-col gap-4 lg:gap-5">
+                <div className="tab-features grid gap-2 lg:gap-5">
                   {currentService.features.map((feature, idx) => (
-                    <div key={idx} className="flex gap-3 items-center justify-center lg:justify-start">
-                      <div className="flex items-center justify-center w-6 h-6 lg:w-[30px] lg:h-[30px] bg-primary rounded-full shrink-0">
+                    <div key={idx} className="grid min-h-[34px] grid-cols-[22px_minmax(0,1fr)] items-center gap-2.5 lg:min-h-11 lg:grid-cols-[30px_minmax(0,1fr)] lg:gap-3">
+                      <div className="flex h-[22px] w-[22px] shrink-0 items-center justify-center rounded-full bg-primary lg:h-[30px] lg:w-[30px]">
                         <img
                           src="/assets/images/icons/ic_check.svg"
                           alt="check icon"
                           className="w-3 lg:w-auto"
                         />
                       </div>
-                      <p className="text-base lg:text-lg font-bold leading-[21px] text-navy">
+                      <p className="text-sm font-bold leading-snug text-navy lg:text-lg lg:leading-[21px]">
                         {feature}
                       </p>
                     </div>
                   ))}
                 </div>
                 <a
-                  href="#konsultasi"
-                  className="px-5 py-3 text-[16px] leading-[19px] w-full lg:w-fit text-center font-semibold border border-foreground rounded-[100px] transition-all duration-300 hover:ring-2 hover:ring-primary hover:bg-primary hover:border-primary hover:text-foreground mt-2 lg:mt-4"
+                  href="#kontak"
+                  className="mt-1 flex min-h-[42px] w-full items-center justify-center rounded-full border border-foreground px-5 py-2.5 text-center text-sm font-semibold leading-none transition-all duration-300 hover:border-primary hover:bg-primary hover:text-foreground hover:ring-2 hover:ring-primary sm:w-fit lg:mt-4 lg:min-h-12 lg:py-3 lg:text-[16px] lg:leading-[19px]"
                 >
                   Pesan Sekarang
                 </a>
