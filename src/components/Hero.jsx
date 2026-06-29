@@ -55,13 +55,15 @@ export default function Hero() {
           animate="visible"
           className="flex flex-col gap-10 lg:gap-[30px] px-4 md:px-8 lg:px-[75px] max-w-[1280px] w-full items-center lg:items-start"
         >
-          <div className="flex flex-col lg:flex-row gap-10 lg:gap-[30px] w-full items-center lg:items-start">
-            <motion.div style={{ y: textY }} className="flex flex-col gap-6 lg:gap-[30px] w-full lg:w-[550px] shrink-0 py-4 lg:py-[92px] items-center text-center lg:items-start lg:text-left">
-              <motion.h1 variants={itemVariants} className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[50px] md:leading-[60px] lg:leading-[70px]">
+          <div className="flex flex-col lg:flex-row gap-10 lg:gap-[30px] w-full items-center justify-between">
+            <motion.div style={{ y: textY }} className="flex flex-col gap-6 lg:gap-[30px] w-full lg:w-[50%] shrink-0 py-4 lg:py-0 items-center text-center lg:items-start lg:text-left">
+              <motion.h1 variants={itemVariants} className="text-4xl md:text-5xl lg:text-[60px] font-extrabold leading-[50px] md:leading-[60px] lg:leading-[70px]">
                 <mark className="bg-primary -mx-1 inline-flex items-center justify-center h-[40px] lg:h-[50px] px-4">
                   Membangun
                 </mark>
+                <br className="hidden lg:block" />
                 {" "}Fondasi Pertumbuhan Bisnis{" "}
+                <br className="hidden lg:block" />
                 <mark className="bg-primary inline-flex -mx-1 items-center justify-center h-[40px] lg:h-[50px] px-4">
                   Anda.
                 </mark>
@@ -85,7 +87,7 @@ export default function Hero() {
               </motion.div>
             </motion.div>
 
-            <motion.div style={{ y: imageY }} variants={itemVariants} className="relative shrink-0 w-full max-w-[400px] lg:max-w-none lg:w-[550px] aspect-[1/1] lg:h-[507px] mt-8 lg:mt-0">
+            <motion.div style={{ y: imageY }} variants={itemVariants} className="relative w-full max-w-[400px] lg:max-w-none lg:w-[50%] shrink-0 aspect-[1/1] lg:h-[507px] mt-8 lg:mt-0 flex justify-center lg:justify-end">
               <motion.div 
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
